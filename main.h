@@ -18,6 +18,10 @@ void exit_function(void);
 void err_msg(char *command);
 void get_env(char **environ);
 void handle_signal(int signal);
+void cd_function(char *path); /* made changes here */
+void exit_function(void);
+char *searching_path(char *command);
+void err_msg(char *command);
 
 #endif
 
