@@ -1,8 +1,10 @@
 #include "main.h"
 
 /**
-*err_msg - this is to print the erro message
-*/
+ * err_msg - this is to print the erro message
+ * @command: parameter to pass
+ * Returns: 0 on success, 1 on failure
+ */
 
 void err_msg(char *command)
 {

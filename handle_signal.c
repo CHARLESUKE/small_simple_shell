@@ -1,6 +1,10 @@
 #include "main.h"
 
-/*this line of codes is for handling signal, ctrl + c*/
+/**
+ * handle_signal - exit shell with a specific status
+ * @signal: to handle signal like when ctrl + c is passed
+ * Return: o on success, 1 on failure
+ */
 
 void handle_signal(int signal)
 {

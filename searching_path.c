@@ -1,11 +1,10 @@
 #include "main.h"
 
 /**
- * To search for paths of a file/dir/command
- * This line of codes will do that
- * it basically contains
- * the path to search
- */
+ * searching_path - This function gets the path of commands
+ * @command: The name of the command to search for in the PATH.
+ * Return: The result of the function.
+*/
 
 char *searching_path(char *command)
 {

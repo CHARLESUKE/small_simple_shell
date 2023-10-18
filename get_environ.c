@@ -1,7 +1,11 @@
 #include "main.h"
 
 
-/*to print environment to standard output*/
+/**
+ * get_env - exit shell with a specific status
+ * @environ: The exit status to set
+ * Return: exit value
+ */
 
 void get_env(char **environ)
 {

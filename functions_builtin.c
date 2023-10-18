@@ -1,11 +1,10 @@
 #include "main.h"
 
 /**
- * Change the current working directory to the specified path.
- *
- * @args - is the path to the new directory.
- * @return 0 on success, -1 on failure.
- */
+ * cd_function - Changes the current working directory to the specified path
+ * @args: is the path to the new directory.
+ * return 0 on success, -1 on failure.
+*/
 
 void cd_function(char *args)
 {
@@ -33,6 +32,12 @@ perror("could not change directory");
 }
 }
 }
+
+/**
+ * exit_function - exits the shell
+ * @void: The exit status to set.
+ * return 0 on success, -1 on failure.
+*/
 
 void exit_function(void)
 {

@@ -1,10 +1,19 @@
 #include "main.h"
 /**
- * main - entry point
+ * all - entry point
+ * void: empty status
+ * Return: 0 on success, 1 on failure
  */
 
 /*avoid betty*/
 int all(void); /*betty checks avoided*/
+
+/**
+ * main - entry point
+ * void: empty status
+ * Return: 0 on success, 1 on failure
+ */
+
 int main(void)
 {
 /* Declare variables*/
