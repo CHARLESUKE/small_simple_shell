@@ -4,11 +4,11 @@
 
 void handle_signal(int signal)
 {
-    char *prmpt = "\nprompt$ ";
+	char *prmpt = "\nprompt$ ";
 
-    (void)signal;
-    write(1, prmpt, strlen(prmpt));
+	(void)signal;
+	write(1, prmpt, strlen(prmpt));
 
-    fflush(stdout);
+	fflush(stdout);
 }
 
