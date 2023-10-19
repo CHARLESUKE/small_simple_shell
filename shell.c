@@ -14,7 +14,7 @@ int all(void); /*betty checks avoided*/
  * Return: 0 on success, 1 on failure
  */
 
-int main(void)
+int main(int ac, char **line_arg)
 {
 /* Declare variables*/
 char *user_line = NULL;
@@ -24,10 +24,9 @@ int read_char;
 /* Sring tokenization*/
 char *delim = " \n"; /* Set an empty string as a delimiter*/
 char *tokens;
-char *line_arg[1024];
 int my_pid;
 /*char **args;*/
-
+(void) ac;
 
 while (1)
 {

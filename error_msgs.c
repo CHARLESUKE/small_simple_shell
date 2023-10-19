@@ -17,7 +17,6 @@ void err_msg(char *command)
 	write(STDERR_FILENO, command, strlen(command));
 	msg2 = "' not found\n";
 	write(STDERR_FILENO, msg2, strlen(msg2));
-	exit(EXIT_FAILURE); /*This goes back to the execve*/
+	exit(EXIT_FAILURE);
 
 }
-
