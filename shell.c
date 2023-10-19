@@ -10,7 +10,8 @@ int all(void); /*betty checks avoided*/
 
 /**
  * main - entry point
- * void: empty status
+ * @ac: empty status
+ * @line_arg: argument vector argv
  * Return: 0 on success, 1 on failure
  */
 
