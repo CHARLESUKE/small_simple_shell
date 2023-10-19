@@ -4,7 +4,7 @@
  * searching_path - This function gets the path of commands
  * @command: The name of the command to search for in the PATH.
  * Return: The result of the function.
-*/
+ */
 
 char *searching_path(char *command)
 {
@@ -13,6 +13,8 @@ char *searching_path(char *command)
 	/* a Copy of the command is created*/
 	char entire_path[1024];
 	char *dir = strtok(path_dup, ":");
+
+	char *result = NULL;
 
 	/* We create a while loop below to iterate and concatenate*/
 	while (dir != NULL)
@@ -30,8 +32,8 @@ char *searching_path(char *command)
 		/* using access function, we check to see if the file exists */
 		if (access(entire_path, F_OK) == 0 && access(entire_path, X_OK) == 0)
 		{
-			free(path_dup);
-			return (strdup(entire_path));
+			result = strdup(entire_path); /* Store the result in 'result'.*/
+			break; /* Exit the loop when the command is found.*/
 		}
 
 
@@ -40,6 +42,11 @@ char *searching_path(char *command)
 
 	free(path_dup);
 
-	return (command);
+	if (result == NULL) /* If 'result' is still NULL, the command was not found.*/
+	{
+		result = strdup(command); /* Return a copy of 'command'. */
+	}
+
+	return (result);
 }
 
