@@ -1,139 +1,45 @@
 #include "main.h"
-/**
- * all - entry point
- * void: empty status
- * Return: 0 on success, 1 on failure
- */
-
-/*avoid betty*/
-int all(void); /*betty checks avoided*/
 
 /**
- * main - entry point
- * @ac: empty status
- * @line_arg: argument vector argv
- * Return: 0 on success, 1 on failure
+ * main - entry point for simple shell
+ * @ac: argument count
+ * @av: argument vector
+ * Return: returns (0) if successful, and (1) if there
+ * is an error
  */
 
-int main(int ac, char **line_arg)
+int main(int ac, char **av)
 {
-/* Declare variables*/
-char *user_line = NULL;
-size_t len = 0;
-int read_char;
+	cmd_d cmddat[] = { CMDDATA_INIT };
+	int file_desc = 2;
 
-/* Sring tokenization*/
-char *delim = " \n"; /* Set an empty string as a delimiter*/
-char *tokens;
-int my_pid;
-/*char **args;*/
-(void) ac;
+	asm ("mov %1, %0\n\t"
+			"add $3, %0"
+			: "=r" (file_desc)
+			: "r" (file_desc));
 
-while (1)
-{
-/* Prompt line*/
-if (isatty(0) == 1)
-{
-write(1, "prompt$ ", 8);
+	if (ac == 2)
+	{
+		file_desc = open(av[1], O_RDONLY);
+		if (file_desc == -1)
+		{
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				append_error_s(av[0]);
+				append_error_s(": 0: Can't open ");
+				append_error_s(av[1]);
+				err_putchar('\n');
+				err_putchar(BUF_FLUSH);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
+		}
+		cmddat->readfd = file_desc;
+	}
+	pop_env(cmddat);
+	rd_record(cmddat);
+	shell(cmddat, av);
+	return (EXIT_SUCCESS);
 }
-
-/* Getting users input*/
-read_char = getline(&user_line, &len, stdin);
-
-if (read_char == -1)
-{
-/* When the user presses CTRL + D*/
-if (feof(stdin))
-{
-exit_function();
-}
-else
-{
-perror("There is error reading input\n");
-free(user_line); /*if failure occurs, free memory*/
-return (-1);
-}
-}
-else if (read_char == 1)
-{
-continue;
-}
-else
-{
-int indx = 0;
-/* Process the input using string tokenization*/
-tokens = strtok(user_line, delim);
-
-/* We use a null terminating tokenization*/
-while (tokens != NULL)
-{
-line_arg[indx] = tokens;
-tokens = strtok(NULL, delim);
-indx++;
-}
-line_arg[indx] = NULL;
-
-
-if (strcmp(line_arg[0], "cd") == 0)
-{
-/* Call for our function*/
-cd_function(line_arg[1]);
-}
-else if (strcmp(line_arg[0], "exit") == 0)
-{
-/* We want to exit*/
-exit_function();
-}
-else
-{
-my_pid = fork();
-
-if (my_pid == -1)
-{
-perror("Fork failed");
-free(user_line);
-return (-1);
-}
-else if (my_pid == 0)
-{
-char *cmdPath = searching_path(line_arg[0]);
-if (cmdPath != NULL)
-{
-
-/* If it is not a built in command, we execute it*/
-
-/* This is the child process*/
-
-
-/* We execute the command with execve*/
-execve(cmdPath, line_arg, environ);
-
-
-err_msg(line_arg[0]);
-free(user_line); /* Free allocated memory */
-exit(1);
-}
-
-}
-else
-{
-
-
-int status;
-int stat;
-stat = WIFEXITED(status);
-waitpid(my_pid, &status, 0);
-
-if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-{
-printf("\nthis process %d exited with non-zero status %d\n", my_pid, stat);
-}
-}
-}
-}
-
-}
-free(user_line);
-return (0);
-}
-
