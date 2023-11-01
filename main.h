@@ -138,24 +138,24 @@ typedef struct builtin
 
 
 /* string function(s) */
-int _putchar(char);
+int the_putchar(char cc);
 void append_S(char *str); /*appends strings from character*/
-size_t string_length(char *str);
-int my_str_comp(const char *, const char *);
+size_t length_string(char *str);
+int str_comp(const char *s1, const char *s2);
 int replace_str(char **o, char *n);
 char *str_concat(char *adr, char *ssrc);
-char *my_str_copy(char *str, char *src);
-char *str_duplicate(const char *str);
-char *_check(const char *haystack, const char *needle);
+char *str_copy(char *dest, char *src);
+char *my_str_dup(const char *str);
+char *to_check(const char *haystack, const char *need);
 
 
 /*fork function(s)*/
-void fork_c(cmd_d *cmd_dat);
+void fork_cmd(cmd_d *command_d);
 
 /* simple shell loop functions */
-int shell(cmd_d *, char **);
-int find_builtIn(cmd_d *);
-void path_cmd(cmd_d *);
+int my_shell(cmd_d *command_d, char **av);
+int builtin_find(cmd_d *command_d);
+void path_cmd(cmd_d *command_d);
 
 /* parse functions */
 int if_exec_cmd(cmd_d *, char *);
@@ -176,30 +176,34 @@ void rm_comments(char *buff);
 
 
 /* exit functions */
-char *string_char(char *ptr, char s);
-char *string_copy(char *dest, char *src, int n); /*Still working on it*/
+char *char_string(char *prompt, char s);
+char *copy_string(char *dest, char *src, int n); /*Still working on it*/
 char *string_concat(char *dest, char *src, int n);
 
 /* free function(s) */
-int _free_ptr(void **);
+int free_prompt(void **prompt);
 
 /* interactive shell function(s) */
-int interactive_shell(cmd_d *);
+int _interact_mode(cmd_d *command_d);
 
 /* _atoi functions */
-int _atoi(char *str);
-int is_alpha(int c);
-int is_delimeter(char c, char *d);
+int atoi(char *str);
+int alpha(int cc);
+int delim(char cc, char *dd);
 
 /* alias function(s) */
-int _set_alias(cmd_d *, char *str);
-int _unset_alias(cmd_d *, char *str);
-int a_print(list_s *_node);
-int alias_cmd(cmd_d *);
+int set_aliass(cmd_d *command_d, char *str);
+int aliass_unset(cmd_d *command_d, char *str);
+int to_print_a(list_s *alias_node);
+int aliass_command(cmd_d *command_d);
 
 /* token function(s) */
-char **token(char *str, char *delim);
+char **tok(char *str, char *delimeter);
 
 /* built in command function */
-int exit_cmd(cmd_d *);
+int command_exit(cmd_d *command_d);
+int command_help(cmd_d *command_d);
+int command_cd(cmd_d *command_d);
+int command_record(cmd_d *command_d)
+
  
